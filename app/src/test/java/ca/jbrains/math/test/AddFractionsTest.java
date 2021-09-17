@@ -31,6 +31,13 @@ public class AddFractionsTest {
                 new Fraction(1, 5).plus(new Fraction(2, 5)));
     }
 
+    @Test
+    void oneDenominatorIsAMultipleOfTheOther() {
+        Assertions.assertEquals(
+                new Fraction(11, 8),
+                new Fraction(3, 4).plus(new Fraction(5, 8)));
+    }
+
     private static final class Fraction {
         private int numerator;
         private int denominator;
@@ -45,7 +52,12 @@ public class AddFractionsTest {
         }
 
         public Fraction plus(Fraction that) {
-            return new Fraction(this.numerator + that.numerator, this.denominator);
+            if (this.denominator != that.denominator)
+                return new Fraction(
+                        this.numerator * that.denominator + that.numerator * this.denominator,
+                        this.denominator * that.denominator);
+            else
+                return new Fraction(this.numerator + that.numerator, this.denominator);
         }
 
         @Override
@@ -53,8 +65,7 @@ public class AddFractionsTest {
             if (other instanceof Fraction) {
                 Fraction that = (Fraction) other;
                 return this.numerator * that.denominator == that.numerator * this.denominator;
-            }
-            else {
+            } else {
                 return false;
             }
         }
@@ -62,6 +73,11 @@ public class AddFractionsTest {
         @Override
         public int hashCode() {
             return 0;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("%d/%d", numerator, denominator);
         }
     }
 }
