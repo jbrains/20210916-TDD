@@ -38,6 +38,13 @@ public class AddFractionsTest {
                 new Fraction(3, 4).plus(new Fraction(5, 8)));
     }
 
+    @Test
+    void denominatorsOnlyHaveACommonFactor() {
+        Assertions.assertEquals(
+                new Fraction(26, 45),
+                new Fraction(4, 9).plus(new Fraction(2, 15)));
+    }
+
     private static final class Fraction {
         private int numerator;
         private int denominator;
