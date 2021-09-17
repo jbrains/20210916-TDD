@@ -33,9 +33,9 @@ public class AddFractionsTest {
 
         public Fraction plus(Fraction that) {
             if (that.integerValue == 0)
-                return this;
+                return new Fraction(this.integerValue + that.integerValue);
             else if (this.integerValue == 0)
-                return that;
+                return new Fraction(this.integerValue + that.integerValue);
             else
                 return new Fraction(this.integerValue + that.integerValue);
         }
