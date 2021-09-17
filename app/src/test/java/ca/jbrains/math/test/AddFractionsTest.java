@@ -6,29 +6,29 @@ import org.junit.jupiter.api.Test;
 public class AddFractionsTest {
     @Test
     void zeroPlusZero() {
-        Assertions.assertEquals(0, new Fraction(0).plus(new Fraction(0)).intValue());
+        Assertions.assertEquals(new Fraction(0), new Fraction(0).plus(new Fraction(0)));
     }
 
     @Test
     void notZeroPlusZero() {
-        Assertions.assertEquals(4, new Fraction(4).plus(new Fraction(0)).intValue());
+        Assertions.assertEquals(new Fraction(4), new Fraction(4).plus(new Fraction(0)));
     }
 
     @Test
     void zeroPlusNotZero() {
-        Assertions.assertEquals(7, new Fraction(0).plus(new Fraction(7)).intValue());
+        Assertions.assertEquals(new Fraction(7), new Fraction(0).plus(new Fraction(7)));
     }
 
     @Test
     void anyIntegers() {
-        Assertions.assertEquals(12, new Fraction(9).plus(new Fraction(3)).intValue());
+        Assertions.assertEquals(new Fraction(12), new Fraction(9).plus(new Fraction(3)));
     }
 
     @Test
     void nonIntegersWithTheSameDenominator() {
-        Fraction sum = new Fraction(1, 5).plus(new Fraction(2, 5));
-        Assertions.assertEquals(3, sum.getNumerator());
-        Assertions.assertEquals(5, sum.getDenominator());
+        Assertions.assertEquals(
+                new Fraction(3, 5),
+                new Fraction(1, 5).plus(new Fraction(2, 5)));
     }
 
     private static final class Fraction {
@@ -46,18 +46,6 @@ public class AddFractionsTest {
 
         public Fraction plus(Fraction that) {
             return new Fraction(this.numerator + that.numerator, this.denominator);
-        }
-
-        public int intValue() {
-            return numerator;
-        }
-
-        public int getNumerator() {
-            return numerator;
-        }
-
-        public int getDenominator() {
-            return denominator;
         }
 
         @Override
