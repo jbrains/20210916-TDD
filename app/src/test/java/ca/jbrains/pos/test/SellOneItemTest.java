@@ -55,19 +55,17 @@ public class SellOneItemTest {
         }
 
         public void onBarcode(String barcode) {
+            Map<String, String> pricesByBarcode = new HashMap<>() {{
+                put("12345", "EUR 7.95");
+                put("23456", "EUR 12.50");
+            }};
+
             if ("".equals(barcode))
                 display.setText("Scanning error: empty barcode");
-            else {
-                Map<String, String> pricesByBarcode = new HashMap<>() {{
-                    put("12345", "EUR 7.95");
-                    put("23456", "EUR 12.50");
-                }};
-
-                if (pricesByBarcode.containsKey(barcode))
-                    display.setText(pricesByBarcode.get(barcode));
-                else
-                    display.setText(String.format("Product not found: %s", barcode));
-            }
+            else if (pricesByBarcode.containsKey(barcode))
+                display.setText(pricesByBarcode.get(barcode));
+            else
+                display.setText(String.format("Product not found: %s", barcode));
         }
     }
 
