@@ -1,7 +1,6 @@
 package ca.jbrains.pos.test;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class SellOneItemTest {
@@ -16,7 +15,6 @@ public class SellOneItemTest {
     }
 
     @Test
-    @Disabled("refactoring")
     void anotherProductFound() {
         Display display = new Display();
         Sale sale = new Sale(display);
@@ -34,7 +32,10 @@ public class SellOneItemTest {
         }
 
         public void onBarcode(String barcode) {
-            display.setText("EUR 7.95");
+            if ("12345".equals(barcode))
+                display.setText("EUR 7.95");
+            else
+                display.setText("EUR 12.50");
         }
     }
 
