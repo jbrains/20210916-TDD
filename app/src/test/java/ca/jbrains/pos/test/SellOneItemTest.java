@@ -63,7 +63,7 @@ public class SellOneItemTest {
                     put("23456", "EUR 12.50");
                 }};
 
-                if ("12345".equals(barcode))
+                if ("12345".equals(barcode) || "23456".equals(barcode))
                     display.setText(pricesByBarcode.get(barcode));
                 else if ("23456".equals(barcode))
                     display.setText(pricesByBarcode.get(barcode));
