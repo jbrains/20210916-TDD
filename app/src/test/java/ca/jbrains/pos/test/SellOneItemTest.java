@@ -48,18 +48,18 @@ public class SellOneItemTest {
     }
 
     public static class Sale {
+        private final Map<String, String> pricesByBarcode;
         private Display display;
 
         public Sale(Display display) {
             this.display = display;
-        }
-
-        public void onBarcode(String barcode) {
-            Map<String, String> pricesByBarcode = new HashMap<>() {{
+            pricesByBarcode = new HashMap<>() {{
                 put("12345", "EUR 7.95");
                 put("23456", "EUR 12.50");
             }};
+        }
 
+        public void onBarcode(String barcode) {
             if ("".equals(barcode))
                 display.setText("Scanning error: empty barcode");
             else if (pricesByBarcode.containsKey(barcode))
