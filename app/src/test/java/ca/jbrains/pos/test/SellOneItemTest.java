@@ -36,10 +36,7 @@ public class SellOneItemTest {
     @Test
     void productNotFound() {
         Display display = new Display();
-        Sale sale = new Sale(display, new HashMap<>() {{
-            put("12345", "EUR 7.95");
-            put("23456", "EUR 12.50");
-        }});
+        Sale sale = new Sale(display, new HashMap<>());
 
         sale.onBarcode("99999");
 
@@ -49,10 +46,7 @@ public class SellOneItemTest {
     @Test
     void emptyBarcode() {
         Display display = new Display();
-        Sale sale = new Sale(display, new HashMap<>() {{
-            put("12345", "EUR 7.95");
-            put("23456", "EUR 12.50");
-        }});
+        Sale sale = new Sale(display, new HashMap<>());
 
         sale.onBarcode("");
 
