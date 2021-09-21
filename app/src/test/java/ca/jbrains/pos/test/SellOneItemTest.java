@@ -65,32 +65,20 @@ public class SellOneItemTest {
         public void onBarcode(String barcode) {
             // SMELL Guard Clause; maybe this belongs somewhere else.
             if ("".equals(barcode)) {
-                displayEmptyBarcodeMessage();
+                display.displayEmptyBarcodeMessage();
                 return;
             }
 
             String price = findPrice(barcode);
             if (price == null) {
-                displayProductNotFoundMessage(barcode);
+                display.displayProductNotFoundMessage(barcode);
             } else {
-                displayPrice(price);
+                display.displayPrice(price);
             }
-        }
-
-        private void displayPrice(String price) {
-            display.setText(price);
         }
 
         private String findPrice(String barcode) {
             return pricesByBarcode.get(barcode);
-        }
-
-        private void displayEmptyBarcodeMessage() {
-            display.setText("Scanning error: empty barcode");
-        }
-
-        private void displayProductNotFoundMessage(String barcode) {
-            display.setText(String.format("Product not found: %s", barcode));
         }
     }
 
@@ -103,6 +91,18 @@ public class SellOneItemTest {
 
         private void setText(String text) {
             this.text = text;
+        }
+
+        private void displayPrice(String price) {
+            setText(price);
+        }
+
+        private void displayEmptyBarcodeMessage() {
+            setText("Scanning error: empty barcode");
+        }
+
+        private void displayProductNotFoundMessage(String barcode) {
+            setText(String.format("Product not found: %s", barcode));
         }
     }
 }
