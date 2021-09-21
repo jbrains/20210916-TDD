@@ -63,12 +63,34 @@ public class SellOneItemTest {
         }
 
         public void onBarcode(String barcode) {
-            if ("".equals(barcode))
-                display.setText("Scanning error: empty barcode");
-            else if (pricesByBarcode.containsKey(barcode))
-                display.setText(pricesByBarcode.get(barcode));
-            else
-                display.setText(String.format("Product not found: %s", barcode));
+            // SMELL Guard Clause; maybe this belongs somewhere else.
+            if ("".equals(barcode)) {
+                displayEmptyBarcodeMessage();
+                return;
+            }
+
+            String price = findPrice(barcode);
+            if (price == null) {
+                displayProductNotFoundMessage(barcode);
+            } else {
+                displayPrice(price);
+            }
+        }
+
+        private void displayPrice(String price) {
+            display.setText(price);
+        }
+
+        private String findPrice(String barcode) {
+            return pricesByBarcode.get(barcode);
+        }
+
+        private void displayEmptyBarcodeMessage() {
+            display.setText("Scanning error: empty barcode");
+        }
+
+        private void displayProductNotFoundMessage(String barcode) {
+            display.setText(String.format("Product not found: %s", barcode));
         }
     }
 
