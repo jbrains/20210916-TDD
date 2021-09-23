@@ -9,7 +9,7 @@ import java.util.Map;
 public class FindPriceInMemoryCatalogTest {
     @Test
     void productFound() {
-        final String barcode = "12345";
+        final String barcode = "::barcode::";
         final Price matchingPrice = Price.cents(795);
 
         InMemoryCatalog catalog = new InMemoryCatalog(new HashMap<>() {{
