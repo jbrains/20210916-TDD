@@ -12,10 +12,17 @@ public class FindPriceInMemoryCatalogTest {
         final String barcode = "::barcode::";
         final Price matchingPrice = Price.cents(795);
 
-        InMemoryCatalog catalog = new InMemoryCatalog(new HashMap<>() {{
-            put(barcode, matchingPrice);
-        }});
+        InMemoryCatalog catalog = catalogWith(barcode, matchingPrice);
         Assertions.assertEquals(matchingPrice, catalog.findPrice(barcode));
+    }
+
+    private InMemoryCatalog catalogWith(String barcode, Price matchingPrice) {
+        return new InMemoryCatalog(new HashMap<>() {{
+            put(String.format("not %s", barcode), Price.cents(-1));
+            put(String.format("definitely not %s", barcode), Price.cents(-2));
+            put(barcode, matchingPrice);
+            put(String.format("not %s, you idiot", barcode), Price.cents(-3));
+        }});
     }
 
     @Test
