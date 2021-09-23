@@ -18,6 +18,12 @@ public class FindPriceInMemoryCatalogTest {
         Assertions.assertEquals(matchingPrice, catalog.findPrice(barcode));
     }
 
+    @Test
+    void productNotFound() {
+        InMemoryCatalog catalog = new InMemoryCatalog(new HashMap<>());
+        Assertions.assertEquals(null, catalog.findPrice("::missing barcode::"));
+    }
+
     private class InMemoryCatalog {
         private Map<String, Price> pricesByBarcode;
 
