@@ -15,7 +15,7 @@ public class FindPriceInMemoryCatalogTest {
         Assertions.assertEquals(matchingPrice, catalogWith(barcode, matchingPrice).findPrice(barcode));
     }
 
-    private InMemoryCatalog catalogWith(String barcode, Price matchingPrice) {
+    private Catalog catalogWith(String barcode, Price matchingPrice) {
         return new InMemoryCatalog(new HashMap<>() {{
             put(String.format("not %s", barcode), Price.cents(-1));
             put(String.format("definitely not %s", barcode), Price.cents(-2));
@@ -31,7 +31,7 @@ public class FindPriceInMemoryCatalogTest {
                 catalogWithout("::missing barcode::").findPrice("::missing barcode::"));
     }
 
-    private InMemoryCatalog catalogWithout(String barcodeToAvoid) {
+    private Catalog catalogWithout(String barcodeToAvoid) {
         return new InMemoryCatalog(new HashMap<>() {{
             put(String.format("not %s", barcodeToAvoid), Price.cents(-1));
             put(String.format("definitely not %s", barcodeToAvoid), Price.cents(-2));
@@ -39,7 +39,7 @@ public class FindPriceInMemoryCatalogTest {
         }});
     }
 
-    private class InMemoryCatalog {
+    private class InMemoryCatalog implements Catalog {
         private Map<String, Price> pricesByBarcode;
 
         public InMemoryCatalog(Map<String, Price> pricesByBarcode) {
