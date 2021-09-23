@@ -20,8 +20,15 @@ public class FindPriceInMemoryCatalogTest {
 
     @Test
     void productNotFound() {
-        InMemoryCatalog catalog = new InMemoryCatalog(new HashMap<>());
-        Assertions.assertEquals(null, catalog.findPrice("::missing barcode::"));
+        Assertions.assertEquals(null, catalogWithout("::missing barcode::").findPrice("::missing barcode::"));
+    }
+
+    private InMemoryCatalog catalogWithout(String barcodeToAvoid) {
+        return new InMemoryCatalog(new HashMap<>() {{
+            put(String.format("not %s", barcodeToAvoid), Price.cents(-1));
+            put(String.format("definitely not %s", barcodeToAvoid), Price.cents(-2));
+            put(String.format("not %s, you idiot", barcodeToAvoid), Price.cents(-3));
+        }});
     }
 
     private class InMemoryCatalog {
