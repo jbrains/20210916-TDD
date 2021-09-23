@@ -12,8 +12,7 @@ public class FindPriceInMemoryCatalogTest {
         final String barcode = "::barcode::";
         final Price matchingPrice = Price.cents(795);
 
-        InMemoryCatalog catalog = catalogWith(barcode, matchingPrice);
-        Assertions.assertEquals(matchingPrice, catalog.findPrice(barcode));
+        Assertions.assertEquals(matchingPrice, catalogWith(barcode, matchingPrice).findPrice(barcode));
     }
 
     private InMemoryCatalog catalogWith(String barcode, Price matchingPrice) {
@@ -27,7 +26,9 @@ public class FindPriceInMemoryCatalogTest {
 
     @Test
     void productNotFound() {
-        Assertions.assertEquals(null, catalogWithout("::missing barcode::").findPrice("::missing barcode::"));
+        Assertions.assertEquals(
+                null,
+                catalogWithout("::missing barcode::").findPrice("::missing barcode::"));
     }
 
     private InMemoryCatalog catalogWithout(String barcodeToAvoid) {
