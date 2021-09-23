@@ -40,22 +40,12 @@ public class SellOneItemControllerTest {
         Mockito.verify(display).displayEmptyBarcodeMessage();
     }
 
-    public interface Catalog {
-        Price findPrice(String barcode);
-    }
-
     public interface Display {
         void displayPrice(Price price);
 
         void displayProductNotFoundMessage(String missingBarcode);
 
         void displayEmptyBarcodeMessage();
-    }
-
-    private static class Price {
-        public static Price cents(int centsValue) {
-            return new Price();
-        }
     }
 
     private static class SellOneItemController {
